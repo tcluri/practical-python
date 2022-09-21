@@ -25,8 +25,7 @@ def read_prices(filename):
     with open(filename, 'rt') as f:
         rows = csv.reader(f)
         for row in rows:
-            try:
-                prices_dictionary[row[0]] = float(row[1])
-            except IndexError:
-                print("There is no data in the row.")
+            if row == []:
+                continue
+            prices_dictionary[row[0]] = float(row[1])
     return prices_dictionary
