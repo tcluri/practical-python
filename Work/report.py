@@ -15,7 +15,18 @@ def read_portfolio(filename):
     return portfolio
 
 
-portfolio = read_portfolio('Data/portfolio.csv')
+# portfolio = read_portfolio('Data/portfolio.csv')
 
-from pprint import pprint
-pprint(portfolio)
+# from pprint import pprint
+# pprint(portfolio)
+
+def read_prices(filename):
+    prices_dictionary = {}
+    with open(filename, 'rt') as f:
+        rows = csv.reader(f)
+        for row in rows:
+            try:
+                prices_dictionary[row[0]] = float(row[1])
+            except IndexError:
+                print("There is no data in the row.")
+    return prices_dictionary
