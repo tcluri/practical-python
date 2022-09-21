@@ -31,20 +31,37 @@ def read_prices(filename):
     return prices_dictionary
 
 
+def make_report(portfolio, prices):
+    report = []
+    for company in portfolio:
+        company_name = company['name']
+        company_num_shares = company['shares']
+        company_price = company['price']
+        price_company = prices[company_name]
+        company_price_change = price_company - company_price
+        company_tuple = (company_name, company_num_shares, price_company, company_price_change)
+        report.append(company_tuple)
+    return report
+
+
 # Ex 2.7 - Finding out if you can retire
 portfolio = read_portfolio('Data/portfolio.csv')
 prices = read_prices('Data/prices.csv')
 
-total_gain_or_loss = 0
+# total_gain_or_loss = 0
 
-for company_shares in portfolio:
-    company_name = company_shares['name']
-    share_price = company_shares['price']
-    num_shares = company_shares['shares']
+# for company_shares in portfolio:
+#     company_name = company_shares['name']
+#     share_price = company_shares['price']
+#     num_shares = company_shares['shares']
 
-    total_gain_or_loss += (share_price - prices[company_name]) * num_shares
+#     total_gain_or_loss += (prices[company_name] - share_price) * num_shares
 
-if total_gain_or_loss > 0:
-    print(f"Profit of {round(total_gain_or_loss, 2)}")
-else:
-    print(f"Loss of {round(total_gain_or_loss, 2)}")
+# if total_gain_or_loss > 0:
+#     print(f"Profit of {round(total_gain_or_loss, 2)}")
+# else:
+#     print(f"Loss of {round(total_gain_or_loss, 2)}")
+
+report = make_report(portfolio, prices)
+for r in report:
+    print(r)
