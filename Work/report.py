@@ -63,5 +63,8 @@ prices = read_prices('Data/prices.csv')
 #     print(f"Loss of {round(total_gain_or_loss, 2)}")
 
 report = make_report(portfolio, prices)
-for r in report:
-    print(r)
+# for r in report:
+#     print('%10s %10d %10.2f %10.2f' % r)
+for name, shares, price, change in report:
+        print(f'{name:>10s} {shares:>10d} {price:>10.2f} {change:>10.2f}')
+
