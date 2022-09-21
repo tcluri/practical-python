@@ -5,18 +5,21 @@ principal = 500000.0
 rate = 0.05
 payment = 2684.11
 total_paid = 0.0
-init_extra_months = 12
-months_payed = 0
+extra_payment_start_month = 61
+extra_payment_end_month = 108
+extra_payment = 1e3
+months_num = 0
 
 while principal > 0:
-    if init_extra_months > 0:
-        extra_payments = 1e3
-    else:
-        extra_payments = 0
-    init_extra_months -= 1
-    months_payed += 1
-    principal = (principal * (1+rate/12)) - (payment + extra_payments)
-    total_paid = total_paid + payment + extra_payments
+    months_num += 1
+    actual_payment = payment
+    if extra_payment_start_month <= months_num <= extra_payment_end_month:
+        actual_payment = payment + extra_payment
+    principal = (principal * (1+rate/12)) - (actual_payment)
+    total_paid = total_paid + actual_payment
+    # print("Months", months_num)
+    # print("Actual payment", actual_payment)
+
 
 print('Total paid', round(total_paid, 2))
-print('Months payed', round(months_payed, 2))
+print('Months payed', round(months_num, 2))
