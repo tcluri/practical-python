@@ -29,3 +29,22 @@ def read_prices(filename):
                 continue
             prices_dictionary[row[0]] = float(row[1])
     return prices_dictionary
+
+
+# Ex 2.7 - Finding out if you can retire
+portfolio = read_portfolio('Data/portfolio.csv')
+prices = read_prices('Data/prices.csv')
+
+total_gain_or_loss = 0
+
+for company_shares in portfolio:
+    company_name = company_shares['name']
+    share_price = company_shares['price']
+    num_shares = company_shares['shares']
+
+    total_gain_or_loss += (share_price - prices[company_name]) * num_shares
+
+if total_gain_or_loss > 0:
+    print(f"Profit of {round(total_gain_or_loss, 2)}")
+else:
+    print(f"Loss of {round(total_gain_or_loss, 2)}")
