@@ -15,7 +15,11 @@ while principal > 0:
     actual_payment = payment
     if extra_payment_start_month <= month_num <= extra_payment_end_month:
         actual_payment = payment + extra_payment
-    principal = (principal * (1+rate/12)) - (actual_payment)
+    # Principal fraction to calculate no overpay
+    principal_fraction = (principal * (1+rate/12))
+    if actual_payment >= principal_fraction:
+        actual_payment = principal_fraction
+    principal = principal_fraction - (actual_payment)
     total_paid = total_paid + actual_payment
     print(month_num, round(total_paid, 2), round(principal,2))
 
