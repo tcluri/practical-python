@@ -46,28 +46,6 @@ def make_report(portfolio, prices):
     return report
 
 
-# Ex 2.7 - Finding out if you can retire
-portfolio = read_portfolio('Data/portfolio.csv')
-prices = read_prices('Data/prices.csv')
-
-# total_gain_or_loss = 0
-
-# for company_shares in portfolio:
-#     company_name = company_shares['name']
-#     share_price = company_shares['price']
-#     num_shares = company_shares['shares']
-
-#     total_gain_or_loss += (prices[company_name] - share_price) * num_shares
-
-# if total_gain_or_loss > 0:
-#     print(f"Profit of {round(total_gain_or_loss, 2)}")
-# else:
-#     print(f"Loss of {round(total_gain_or_loss, 2)}")
-
-report = make_report(portfolio, prices)
-# for r in report:
-#     print('%10s %10d %10.2f %10.2f' % r)
-
 def print_report(report):
     headers = ('Name', 'Shares', 'Price', 'Change')
     # Align and print the headers and the next line
@@ -75,3 +53,13 @@ def print_report(report):
     print(10*'-', 10*'-', 10*'-', 10*'-')
     for name, shares, price, change in report:
             print(f'{name:>10s} {shares:>10d} {f"${price:.2f}":>10s} {change:>10.2f}')
+
+
+def portfolio_report(portfolio_file, prices_file):
+    portfolio = read_portfolio(portfolio_file)
+    prices = read_prices(prices_file)
+    report = make_report(portfolio, prices)
+    print_report(report)
+
+
+portfolio_report('Data/portfolio.csv', 'Data/prices.csv')
