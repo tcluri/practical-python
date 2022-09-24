@@ -23,13 +23,17 @@ def parse_csv(filename, select=None, types=None, has_headers=True, delimiter=','
                 headers = select
         # Build the output for records
         records = []
-        for row in rows:
+        for row_ind, row in enumerate(rows, start=1):
             if not row:    # Skip rows with no data
                 continue
             if indices:
                 row = [row[index] for index in indices]
             if types:
-                row = [func(val) for func, val in zip(types, row)]
+                try:
+                    row = [func(val) for func, val in zip(types, row)]
+                except ValueError as e:
+                    print(f"Row {row_ind}: Couldn't convert {row}")
+                    print(f"Row {row_ind}: Reason", e)
             if has_headers:
                 record = dict(zip(headers, row))
             else:
