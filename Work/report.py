@@ -5,35 +5,11 @@ import csv
 from fileparse import parse_csv
 
 def read_portfolio(filename):
-    # portfolio = []
     return parse_csv(filename, types=[str, int, float], silence_errors=True)
 
-    # with open(filename, 'rt') as f:
-    #     rows = csv.reader(f)
-    #     headers = next(rows)
-    #     for row_num, row in enumerate(rows, start=1):
-    #         # holding_dict = {'name':row[0], 'shares':int(row[1]), 'price':float(row[2])}
-    #         row = (row[0], int(row[1]), float(row[2]))
-    #         holding_dict = dict(zip(headers, row))
-    #         portfolio.append(holding_dict)
-    # return portfolio
-
-
-# portfolio = read_portfolio('Data/portfolio.csv')
-
-# from pprint import pprint
-# pprint(portfolio)
 
 def read_prices(filename):
     return dict(parse_csv(filename, types=[str, float], has_headers=False, silence_errors=True))
-    # prices_dictionary = {}
-    # with open(filename, 'rt') as f:
-    #     rows = csv.reader(f)
-    #     for row in rows:
-    #         if row == []:
-    #             continue
-    #         prices_dictionary[row[0]] = float(row[1])
-    # return prices_dictionary
 
 
 def make_report(portfolio, prices):
@@ -67,7 +43,6 @@ def portfolio_report(portfolio_file, prices_file):
 
 
 def main(argv):
-    # portfolio_report('Data/portfolio.csv', 'Data/prices.csv')
     portfolio_report(argv[1], argv[2])
 
 
