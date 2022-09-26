@@ -24,13 +24,14 @@ def portfolio_cost(filename):
                 for each_company in read_portfolio(filename)])
 
 
-if len(sys.argv) == 2:
-    filename = sys.argv[1]
-else:
-    filename = 'Data/portfolio.csv'
+def main(argv):
+    print(f"Total cost: {portfolio_cost(argv[1])}")
 
-cost = portfolio_cost(filename)
-print(f"Total cost: {cost}")
+
+if __name__ == '__main__':
+    import sys
+    if sys.argv[0] == 'pcost.py':
+        main(sys.argv)
 
 # cost = portfolio_cost('Data/portfolio.csv')
 # print(f"Total cost: {cost}")
