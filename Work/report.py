@@ -54,7 +54,7 @@ def print_report(report, formatter):
         # print(f'{name:>10s} {shares:>10d} {f"${price:.2f}":>10s} {change:>10.2f}')
 
 
-def portfolio_report(portfolio_file, prices_file):
+def portfolio_report(portfolio_file, prices_file, fmt='txt'):
     '''
     Make a stock report given portfolio and price data files.
     '''
@@ -67,7 +67,8 @@ def portfolio_report(portfolio_file, prices_file):
 
     # Print it out
     # formatter = tableformat.CSVTableFormatter()
-    formatter = tableformat.HTMLTableFormatter()
+    # formatter = tableformat.HTMLTableFormatter()
+    formatter = tableformat.create_formatter(fmt)
     print_report(report, formatter)
 
 
