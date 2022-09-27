@@ -2,6 +2,8 @@
 #
 # Exercise 2.5 - List of dictionaries
 from fileparse import parse_csv
+import stock
+
 
 def read_portfolio(filename):
     """
@@ -9,7 +11,10 @@ def read_portfolio(filename):
     with keys name, shares, and price.
     """
     with open(filename) as lines:
-        return parse_csv(lines, types=[str, int, float], silence_errors=True)
+        portfolio = parse_csv(lines, types=[str, int, float], silence_errors=True)
+        portfolio = [stock.Stock(each_dict['name'], each_dict['shares'], each_dict['price'])
+                     for each_dict in portfolio]
+        return portfolio
 
 
 def read_prices(filename):
@@ -24,9 +29,9 @@ def read_prices(filename):
 def make_report(portfolio, prices):
     report = []
     for company in portfolio:
-        company_name = company['name']
-        company_num_shares = company['shares']
-        company_price = company['price']
+        company_name = company.name
+        company_num_shares = company.shares
+        company_price = company.price
         price_company = prices[company_name]
         company_price_change = price_company - company_price
         company_tuple = (company_name, company_num_shares, price_company, company_price_change)
@@ -48,7 +53,6 @@ def portfolio_report(portfolio_file, prices_file):
     prices = read_prices(prices_file)
     report = make_report(portfolio, prices)
     print_report(report)
-
 
 
 def main(args):
