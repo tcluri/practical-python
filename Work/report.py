@@ -3,6 +3,7 @@
 # Exercise 2.5 - List of dictionaries
 from fileparse import parse_csv
 import stock
+import tableformat
 
 
 def read_portfolio(filename):
@@ -39,20 +40,35 @@ def make_report(portfolio, prices):
     return report
 
 
-def print_report(report):
-    headers = ('Name', 'Shares', 'Price', 'Change')
+def print_report(report, formatter):
+    '''
+    Print a nicely formatted table from a list of (name, shares, price, change) tuples.
+    '''
+    formatter.headings(['Name', 'Shares', 'Price', 'Change'])
     # Align and print the headers and the next line
-    print('%10s %10s %10s %10s' % headers)
-    print(10*'-', 10*'-', 10*'-', 10*'-')
+    # print('%10s %10s %10s %10s' % headers)
+    # print(10*'-', 10*'-', 10*'-', 10*'-')
     for name, shares, price, change in report:
-            print(f'{name:>10s} {shares:>10d} {f"${price:.2f}":>10s} {change:>10.2f}')
+        rowdata = [ name, str(shares), f'${price:.2f}', f'{change:0.2f}']
+        formatter.row(rowdata)
+        # print(f'{name:>10s} {shares:>10d} {f"${price:.2f}":>10s} {change:>10.2f}')
 
 
 def portfolio_report(portfolio_file, prices_file):
+    '''
+    Make a stock report given portfolio and price data files.
+    '''
+    # Read data files
     portfolio = read_portfolio(portfolio_file)
     prices = read_prices(prices_file)
+
+    # Create the report data
     report = make_report(portfolio, prices)
-    print_report(report)
+
+    # Print it out
+    # formatter = tableformat.CSVTableFormatter()
+    formatter = tableformat.HTMLTableFormatter()
+    print_report(report, formatter)
 
 
 def main(args):
