@@ -8,13 +8,14 @@ def parse_csv(filestream, select=None, types=None, has_headers=True, delimiter='
     Parse a delimiter separated file object into a list of records
     '''
     if type(filestream) == str:
-        raise TypeError('The input should be a TextIOWrapper class and not a string')
+        print('The input should be a file object and not a string')
+        print('Converting the filename string')
+        filestream = open(filestream, 'rt')
+
     if select and not has_headers:
         raise RuntimeError("select argument requires column headers")
 
-    rows = [each_fileobject.split(delimiter) for each_fileobject in filestream]
-    # with open(filename) as f:
-    #     rows = csv.reader(f, delimiter=delimiter)
+    rows = csv.reader(filestream, delimiter=delimiter)
 
 
     # Indices of the select columns
@@ -22,8 +23,7 @@ def parse_csv(filestream, select=None, types=None, has_headers=True, delimiter='
     # Check if the headers are present
     if has_headers:
         # Read the file headers
-        headers = [elem.strip() for elem in rows[0]]
-        rows = rows[1:]
+        headers = next(rows)
         # Select only desired columns
         if select:
             indices = [headers.index(select_ind) for select_ind in select]
@@ -47,5 +47,6 @@ def parse_csv(filestream, select=None, types=None, has_headers=True, delimiter='
         else:
             record = tuple(row)
         records.append(record)
-
+    # Close the filestream in case the file is a string
+    filestream.close()
     return records

@@ -10,11 +10,12 @@ def portfolio_cost(filename):
                 for each_company in read_portfolio(filename)])
 
 
-def main(argv):
-    print(f"Total cost: {portfolio_cost(argv[1])}")
+def main(args):
+    if len(args) != 2:
+        raise SystemExit('Usage: %s portfoliofile' % args[0])
+    print(f"Total cost: {portfolio_cost(args[1])}")
 
 
 if __name__ == '__main__':
     import sys
-    if sys.argv[0] == 'pcost.py':
-        main(sys.argv)
+    main(sys.argv)
