@@ -6,7 +6,8 @@ import csv
 from report import read_portfolio
 
 def portfolio_cost(filename):
-   return sum([each_company.cost for each_company in read_portfolio(filename)])
+   portfolio = read_portfolio(filename)
+   return portfolio.total_cost
 
 
 def main(args):

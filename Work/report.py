@@ -4,6 +4,7 @@
 from fileparse import parse_csv
 import stock
 import tableformat
+from portfolio import Portfolio
 
 
 def read_portfolio(filename):
@@ -13,9 +14,9 @@ def read_portfolio(filename):
     """
     with open(filename) as lines:
         portfolio = parse_csv(lines, types=[str, int, float], silence_errors=True)
-        portfolio = [stock.Stock(each_dict['name'], each_dict['shares'], each_dict['price'])
-                     for each_dict in portfolio]
-        return portfolio
+    portfolio = [stock.Stock(each_dict['name'], each_dict['shares'], each_dict['price'])
+                 for each_dict in portfolio]
+    return Portfolio(portfolio)
 
 
 def read_prices(filename):
