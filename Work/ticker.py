@@ -19,6 +19,12 @@ def make_dicts(rows, headers):
         yield dict(zip(headers, row))
 
 
+def filter_symbols(rows, names):
+    for row in rows:
+        if row['name'] in names:
+            yield row
+
+
 def parse_stock_data(lines):
     rows = csv.reader(lines)
     rows = select_columns(rows, [0, 1, 4])
@@ -27,9 +33,10 @@ def parse_stock_data(lines):
     return rows
 
 
-
 if __name__=="__main__":
-    lines = follow('Data/stocklog.csv')
-    rows = parse_stock_data(lines)
+    import report
+    portfolio = report.read_portfolio('Data/portfolio.csv')
+    rows = parse_stock_data(follow('Data/stocklog.csv'))
+    rows = filter_symbols(rows, portfolio)
     for row in rows:
         print(row)
