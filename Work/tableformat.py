@@ -1,5 +1,7 @@
 # tableformat.py
 
+class FormatError(Exception):
+    pass
 
 class TableFormatter:
     def headings(self, headers):
@@ -64,7 +66,7 @@ def create_formatter(name):
     elif name == 'html':
         return HTMLTableFormatter()
     else:
-        raise RuntimeError(f'Unknown format {name}')
+        raise FormatError(f'Unknown table format {name}')
 
 
 def print_table(portfile, columns, formatter):
