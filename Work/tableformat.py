@@ -65,3 +65,11 @@ def create_formatter(name):
         return HTMLTableFormatter()
     else:
         raise RuntimeError(f'Unknown format {name}')
+
+
+def print_table(portfile, columns, formatter):
+    formatter.headings(columns)
+    # Get row data
+    for each_stock in portfile:
+        rowdata = [str(getattr(each_stock, colname)) for colname in columns]
+        formatter.row(rowdata)
