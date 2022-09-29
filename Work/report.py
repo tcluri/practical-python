@@ -5,6 +5,9 @@ from fileparse import parse_csv
 import stock
 import tableformat
 from portfolio import Portfolio
+import logging
+logging.basicConfig(filename='app.log',filemode='w', level=logging.WARNING)
+
 
 def read_portfolio(filename, **opts):
     """

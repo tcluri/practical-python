@@ -42,8 +42,8 @@ def parse_csv(filestream, select=None, types=None, has_headers=True, delimiter='
                 row = [func(val) for func, val in zip(types, row)]
             except ValueError as e:
                 if not silence_errors:
-                    log.warning(f"Row {row_ind}: Couldn't convert {row}")
-                    log.debug(f"Row {row_ind}: Reason", e)
+                    log.warning("Row %d: Couldn't convert %s", row_ind, row)
+                    log.debug("Row %d: Reason %s", row_ind, e)
                 continue
         if has_headers:
             record = dict(zip(headers, row))
