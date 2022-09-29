@@ -13,3 +13,7 @@ def typedproperty(name, expected_type):
         setattr(self, private_name, value)
 
     return prop
+
+String = lambda name: typedproperty(name, str)
+Integer = lambda name: typedproperty(name, int)
+Float = lambda name: typedproperty(name, float)

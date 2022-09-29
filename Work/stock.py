@@ -2,10 +2,12 @@ from typedproperty import typedproperty
 
 
 class Stock:
-#    __slots__ = ('name', '_shares', 'price')
-    name = typedproperty('name', str)
-    shares = typedproperty('shares', int)
-    price = typedproperty('price', float)
+    # name = typedproperty('name', str)
+    # shares = typedproperty('shares', int)
+    # price = typedproperty('price', float)
+    name = String('name')
+    shares = Integer('shares')
+    price = Float('price')
 
     def __init__(self, name, shares, price):
         self.name = name
