@@ -39,7 +39,8 @@ def parse_stock_data(lines):
 def ticker(portfile, stockslog, fmt='txt'):
     portfolio = report.read_portfolio(portfile)
     rows = parse_stock_data(follow(stockslog))
-    rows = filter_symbols(rows, portfolio)
+    # rows = filter_symbols(rows, portfolio)
+    rows = (row for row in rows if row['name'] in portfolio)
     formatter = tableformat.create_formatter(fmt)
     formatter.headings(['Name', 'Price', 'Change'])
 
