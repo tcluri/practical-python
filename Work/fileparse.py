@@ -42,6 +42,7 @@ def parse_csv(filestream, select=None, types=None, has_headers=True, delimiter='
                 if not silence_errors:
                     print(f"Row {row_ind}: Couldn't convert {row}")
                     print(f"Row {row_ind}: Reason", e)
+                    continue
         if has_headers:
             record = dict(zip(headers, row))
         else:
