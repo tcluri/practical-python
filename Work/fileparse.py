@@ -7,10 +7,10 @@ def parse_csv(filestream, select=None, types=None, has_headers=True, delimiter='
     '''
     Parse a delimiter separated file object into a list of records
     '''
-    if type(filestream) == str:
-        print('The input should be a file object and not a string')
-        print('Converting the filename string')
-        filestream = open(filestream, 'rt')
+    # if type(filestream) == str:
+    #     print('The input should be a file object and not a string')
+    #     print('Converting the filename string')
+    #     filestream = open(filestream, 'rt')
 
     if select and not has_headers:
         raise RuntimeError("select argument requires column headers")
