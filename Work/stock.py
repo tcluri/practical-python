@@ -1,13 +1,10 @@
-from typedproperty import typedproperty
+import typedproperty as tp
 
 
 class Stock:
-    # name = typedproperty('name', str)
-    # shares = typedproperty('shares', int)
-    # price = typedproperty('price', float)
-    name = String('name')
-    shares = Integer('shares')
-    price = Float('price')
+    name = tp.String('name')
+    shares = tp.Integer('shares')
+    price = tp.Float('price')
 
     def __init__(self, name, shares, price):
         self.name = name
