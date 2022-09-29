@@ -1,7 +1,10 @@
 # ticker.py
 
-from follow import follow
 import csv
+import report
+import tableformat
+from follow import follow
+import time
 
 
 def select_columns(rows, indices):
@@ -33,10 +36,21 @@ def parse_stock_data(lines):
     return rows
 
 
-if __name__=="__main__":
-    import report
-    portfolio = report.read_portfolio('Data/portfolio.csv')
-    rows = parse_stock_data(follow('Data/stocklog.csv'))
+def ticker(portfile, stockslog, fmt='txt'):
+    portfolio = report.read_portfolio(portfile)
+    rows = parse_stock_data(follow(stockslog))
     rows = filter_symbols(rows, portfolio)
+    formatter = tableformat.create_formatter(fmt)
+    formatter.headings(['Name', 'Price', 'Change'])
+
     for row in rows:
-        print(row)
+        formatter.row([row['name'], f"{row['price']:0.2f}", f"{row['change']:0.2f}"])
+
+def main(args):
+    if len(args) != 4:
+        raise SystemExit('Usage: %s portfoliofile logfile fmt' % args[0])
+    ticker(args[1], args[2], args[3])
+
+if __name__ == "__main__":
+    import sys
+    main(sys.argv)
