@@ -12,10 +12,7 @@ def read_portfolio(filename, **opts):
     with keys name, shares, and price.
     """
     with open(filename) as lines:
-        portfolio = parse_csv(lines, select=['name', 'shares', 'price'],
-                              types=[str, int, float], **opts)
-        portfolio = [stock.Stock(**each_dict) for each_dict in portfolio]
-        return Portfolio(portfolio)
+        return Portfolio.from_csv(lines, **opts)
 
 
 def read_prices(filename, **opts):

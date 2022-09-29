@@ -2,6 +2,8 @@
 #
 # Exercise 3.3
 import csv
+import logging
+log = logging.getLogger(__name__)
 
 def parse_csv(filestream, select=None, types=None, has_headers=True, delimiter=',', silence_errors=False):
     '''
@@ -40,14 +42,13 @@ def parse_csv(filestream, select=None, types=None, has_headers=True, delimiter='
                 row = [func(val) for func, val in zip(types, row)]
             except ValueError as e:
                 if not silence_errors:
-                    print(f"Row {row_ind}: Couldn't convert {row}")
-                    print(f"Row {row_ind}: Reason", e)
+                    log.warning(f"Row {row_ind}: Couldn't convert {row}")
+                    log.debug(f"Row {row_ind}: Reason", e)
                 continue
         if has_headers:
             record = dict(zip(headers, row))
         else:
             record = tuple(row)
         records.append(record)
-    # Close the filestream in case the file is a string
-    filestream.close()
+
     return records
